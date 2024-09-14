@@ -4,23 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Rocket;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 
 class RocketController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
 	 */
-	public function index(): JsonResponse
+	public function index()
 	{
 		// Retrieve all rockets from the database
 		$rockets = Rocket::all();
 
+		return $rockets;
+
 		// Return the rockets in JSON format
-		return response()->json([
-			'success' => true,
-			'data' => $rockets
-		], 200);
+		// return response()->json([
+		// 	'success' => true,
+		// 	'data' => $rockets
+		// ], 200);
 	}
 
 

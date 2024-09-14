@@ -12,5 +12,5 @@ Route::get('/hello', function (Request $request) {
 	return 'Hello World';
 });
 
-Route::get('/rockets', [RocketController::class, 'index']);
+Route::apiResource('rockets', RocketController::class);
 
