@@ -23,13 +23,6 @@ class RocketController extends Controller
 		], 200);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 */
-	public function create()
-	{
-		//
-	}
 
 	/**
 	 * Store a newly created resource in storage.
@@ -43,14 +36,6 @@ class RocketController extends Controller
 	 * Display the specified resource.
 	 */
 	public function show(Rocket $rocket)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 */
-	public function edit(Rocket $rocket)
 	{
 		//
 	}
