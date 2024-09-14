@@ -5,7 +5,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RocketController;
 use App\Http\Controllers\MissionController;
 
-Route::get('/hello', function (Request $request) {
+Route::get('/hello-text', function (Request $request) {
+	// text/html
+	return 'Hello World!';
+});
+
+Route::get('/hello-array', function (Request $request) {
+	// application/json
+	return [
+		'success' => true,
+		'data' => 'Hello World!'
+	];
+});
+
+Route::get('/hello-response', function (Request $request) {
+	// application/json with definable status
 	return response()->json([
 		'success' => true,
 		'data' => 'Hello World!'
@@ -15,7 +29,6 @@ Route::get('/hello', function (Request $request) {
 Route::get('/user', function (Request $request) {
 	return $request->user();
 })->middleware('auth:sanctum');
-
 
 
 Route::apiResource('rockets', RocketController::class);

@@ -13,7 +13,7 @@ class RocketController extends Controller
 	public function index()
 	{
 		// Retrieve all rockets from the database
-		$rockets = Rocket::all();
+		$rockets = Rocket::with('missions')->get();
 
 		return $rockets;
 
