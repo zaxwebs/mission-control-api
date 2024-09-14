@@ -12,7 +12,14 @@ class MissionController extends Controller
 	 */
 	public function index()
 	{
-		//
+		// Retrieve all missions with their associated rockets
+		$missions = Mission::with('rocket')->get();
+
+		// Return the missions in JSON format
+		return response()->json([
+			'success' => true,
+			'data' => $missions
+		], 200);
 	}
 
 	/**
@@ -20,7 +27,21 @@ class MissionController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		// Validate the request data
+		$request->validate([
+			'rocket_id' => 'required|exists:rockets,id',
+			'name' => 'required|string|max:255',
+			'description' => 'required|string',
+		]);
+
+		// Create a new mission with the validated data
+		$mission = Mission::create($request->all());
+
+		// Return the newly created mission in JSON format
+		return response()->json([
+			'success' => true,
+			'data' => $mission
+		], 201);
 	}
 
 	/**
@@ -28,7 +49,11 @@ class MissionController extends Controller
 	 */
 	public function show(Mission $mission)
 	{
-		//
+		// Return the specified mission with the associated rocket
+		return response()->json([
+			'success' => true,
+			'data' => $mission->load('rocket')
+		], 200);
 	}
 
 	/**
@@ -36,7 +61,21 @@ class MissionController extends Controller
 	 */
 	public function update(Request $request, Mission $mission)
 	{
-		//
+		// Validate the request data
+		$request->validate([
+			'rocket_id' => 'sometimes|exists:rockets,id',
+			'name' => 'sometimes|string|max:255',
+			'description' => 'sometimes|string',
+		]);
+
+		// Update the mission with the validated data
+		$mission->update($request->all());
+
+		// Return the updated mission in JSON format
+		return response()->json([
+			'success' => true,
+			'data' => $mission
+		], 200);
 	}
 
 	/**
@@ -44,6 +83,13 @@ class MissionController extends Controller
 	 */
 	public function destroy(Mission $mission)
 	{
-		//
+		// Delete the mission from storage
+		$mission->delete();
+
+		// Return a success message
+		return response()->json([
+			'success' => true,
+			'message' => 'Mission deleted successfully.'
+		], 200);
 	}
 }
