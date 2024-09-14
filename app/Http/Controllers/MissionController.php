@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Missions;
+use App\Models\Mission;
 use Illuminate\Http\Request;
 
 class MissionController extends Controller
@@ -26,7 +26,7 @@ class MissionController extends Controller
 	/**
 	 * Display the specified resource.
 	 */
-	public function show(Missions $missions)
+	public function show(Mission $mission)
 	{
 		//
 	}
@@ -34,7 +34,7 @@ class MissionController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(Request $request, Missions $missions)
+	public function update(Request $request, Mission $mission)
 	{
 		//
 	}
@@ -42,7 +42,7 @@ class MissionController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy(Missions $missions)
+	public function destroy(Mission $mission)
 	{
 		//
 	}
