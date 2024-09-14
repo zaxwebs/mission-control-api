@@ -80,10 +80,10 @@ class AuthController extends Controller
 	public function logout(Request $request)
 	{
 		// Revoke all tokens for the authenticated user
-		//$request->user()->tokens()->delete();
+		$request->user()->tokens()->delete();
 
 		// Revoke the token that was used to authenticate the request
-		$request->user()->currentAccessToken()->delete();
+		// $request->user()->currentAccessToken()->delete();
 
 		// Return a success message
 		return response()->json([
