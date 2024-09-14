@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RocketController;
 
 Route::get('/user', function (Request $request) {
 	return $request->user();
@@ -10,4 +11,6 @@ Route::get('/user', function (Request $request) {
 Route::get('/hello', function (Request $request) {
 	return 'Hello World';
 });
+
+Route::get('/rockets', [RocketController::class, 'index']);
 
