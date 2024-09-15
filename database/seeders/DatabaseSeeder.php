@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
 		]);
 
 		$rockets = Rocket::factory()
-			->count(5)
-			->hasMissions(3) // Creates 3 missions for each rocket
+			->count(50)
+			->hasMissions(2) // Creates 3 missions for each rocket
 			->create();
 	}
 }

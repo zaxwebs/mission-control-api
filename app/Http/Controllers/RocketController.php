@@ -14,7 +14,6 @@ class RocketController extends Controller
 	 */
 	public function index()
 	{
-		// Use Spatie QueryBuilder to filter and sort rockets, and include missions
 		$rockets = QueryBuilder::for(Rocket::class)
 			->allowedIncludes('missions')
 			->allowedFilters([
@@ -26,12 +25,12 @@ class RocketController extends Controller
 			])
 			->defaultSort('-id')
 			->allowedSorts(['created_at', 'name', 'height', 'diameter', 'weight', 'payload_capacity'])
-			->get();
+			->simplePaginate()->withQueryString();
 
 		// Return the filtered and sorted rockets in JSON format
 		return response()->json([
 			'success' => true,
-			'data' => $rockets
+			'data' => $rockets,
 		], 200);
 	}
 

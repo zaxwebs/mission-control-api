@@ -21,7 +21,7 @@ class MissionController extends Controller
 			])
 			->defaultSort('-id')
 			->allowedSorts(['created_at', 'name'])
-			->get();
+			->simplePaginate()->withQueryString();
 
 		// Return the filtered and sorted missions in JSON format
 		return response()->json([
