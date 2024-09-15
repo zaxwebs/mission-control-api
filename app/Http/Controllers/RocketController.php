@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Rocket;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class RocketController extends Controller
 {
@@ -12,10 +14,21 @@ class RocketController extends Controller
 	 */
 	public function index()
 	{
-		// Retrieve all rockets with their associated missions
-		$rockets = Rocket::with('missions')->latest()->get();
+		// Use Spatie QueryBuilder to filter and sort rockets, and include missions
+		$rockets = QueryBuilder::for(Rocket::class)
+			->allowedIncludes('missions')
+			->allowedFilters([
+				'name',
+				AllowedFilter::exact('height'),
+				AllowedFilter::exact('diameter'),
+				AllowedFilter::exact('weight'),
+				AllowedFilter::exact('payload_capacity'),
+			])
+			->defaultSort('-id')
+			->allowedSorts(['created_at', 'name', 'height', 'diameter', 'weight', 'payload_capacity'])
+			->get();
 
-		// Return the rockets in JSON format
+		// Return the filtered and sorted rockets in JSON format
 		return response()->json([
 			'success' => true,
 			'data' => $rockets

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Mission;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class MissionController extends Controller
 {
@@ -12,10 +14,16 @@ class MissionController extends Controller
 	 */
 	public function index()
 	{
-		// Retrieve all missions with their associated rockets
-		$missions = Mission::with('rocket')->latest()->get();
+		$missions = QueryBuilder::for(Mission::class)
+			->allowedIncludes('rocket')
+			->allowedFilters([
+				'name',
+			])
+			->defaultSort('-id')
+			->allowedSorts(['created_at', 'name'])
+			->get();
 
-		// Return the missions in JSON format
+		// Return the filtered and sorted missions in JSON format
 		return response()->json([
 			'success' => true,
 			'data' => $missions
