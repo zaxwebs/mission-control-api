@@ -13,7 +13,7 @@ class MissionController extends Controller
 	public function index()
 	{
 		// Retrieve all missions with their associated rockets
-		$missions = Mission::with('rocket')->get();
+		$missions = Mission::with('rocket')->latest()->get();
 
 		// Return the missions in JSON format
 		return response()->json([
